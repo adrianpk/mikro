@@ -11,6 +11,7 @@ import (
 	"time"
 
 	"github.com/gobuffalo/pop/nulls"
+	guuid "github.com/gofrs/uuid"
 	uuid "github.com/gofrs/uuid"
 )
 
@@ -19,10 +20,18 @@ var (
 	// "unexpected `:` while reading named param at"
 	// in sqlx NamedExec.
 	dateFormat = "2006-01-02T15::04::05.999Z"
+	// ZeroID is a nullable version of zero value UUID.
+	ZeroID     = ToNullsUUID(uuid.Nil)
+	ZeroString = ToNullsString("")
 )
 
-// ToZeroUUID - Return a nullable version of zero value UUID.
-func ToZeroUUID() nulls.UUID {
+// NewUUID an UUID v4 - gofrs/uuid
+func NewUUID() (uuid.UUID, error) {
+	return guuid.NewV4()
+}
+
+// ZeroUUID - Return a nullable version of zero value UUID.
+func ZeroUUID() nulls.UUID {
 	return ToNullsUUID(uuid.Nil)
 }
 
