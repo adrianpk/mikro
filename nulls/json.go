@@ -49,6 +49,10 @@ func (nj JSONB) Value() (driver.Value, error) {
 	return nj.ByteArray, nil
 }
 
+func (nj JSONB) String() string {
+	return string(nj.ByteArray)
+}
+
 // Match - Custom model comparator.
 func (nj JSONB) Match(tc JSONB) bool {
 	r := string(nj.ByteArray) == string(tc.ByteArray)
