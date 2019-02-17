@@ -21,8 +21,11 @@ var (
 	// in sqlx NamedExec.
 	dateFormat = "2006-01-02T15::04::05.999Z"
 	// ZeroID is a nullable version of zero value UUID.
-	ZeroID     = ToNullsUUID(uuid.Nil)
+	ZeroID = ToNullsUUID(uuid.Nil)
+	// ZeroString is a nullable version of zero value string.
 	ZeroString = ToNullsString("")
+	// ZeroGeoPoint is a nullable version of zero value geo Point.
+	ZeroGeoPoint = MakeGeoPoint(-71.1043443253471, 42.3150676015829, true)
 )
 
 // NewUUID an UUID v4 - gofrs/uuid
@@ -100,9 +103,9 @@ func NowTime() nulls.Time {
 	return ToTime(time.Now())
 }
 
-// ToZeroPoint - Return a nullable version of geolocation zero point.
-func ToZeroPoint() nulls.Time {
-	return ToTime(time.Now())
+// ToZeroGeoPoint - Return a nullable version of geolocation zero point.
+func ToZeroGeoPoint(lat, lng, float64, valid bool) GeoPoint {
+	return MakeGeoPoint(0.0, 0.0, valid)
 }
 
 // FormatDate - Format date to use in SQL queries and statements.
